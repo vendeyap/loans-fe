@@ -1,0 +1,28 @@
+.container {
+    padding: 0 3%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.button-generic {
+    background-color: crimson;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    min-width: 100px;
+}
+
+.button-back {
+    background-color: cornflowerblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}

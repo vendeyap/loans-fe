@@ -1,0 +1,38 @@
+.home {
+    display: flex;
+    flex-direction: column;
+}
+
+.money-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 30px 0;
+
+    & .money-title {
+        font-size: 26px;
+        color: #272525;
+    }
+
+    & .money-price {
+        padding: 30px 0;
+        font-size: 24px;
+        font-weight: lighter;
+    }
+}
+
+.button-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    justify-content: end;
+    padding: 20px 0;
+}
+
+.table-content {
+    display: flex;
+    flex-direction: row;
+}
