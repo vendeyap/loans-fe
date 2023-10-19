@@ -1,9 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import DataTable from 'react-data-table-component';
 import './styles.css'
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const Home = () => {
+
+    const [data, setData] = useState([])
+
+    const getPayments = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/payment`);
+        const paymentsList = response.data.map((item: { amount: any; }, idx: number) => {
+            return {
+                id: idx + 1,
+                year: '1988',
+                month: 'Octubre',
+                paymentDate: '10/01/2023',
+                value: item.amount,
+                outstandingBalance: '$ 42.000.000',
+                statusPayment: 'Validado',
+            }
+        })
+        setData(paymentsList);
+    }
+
+    useEffect(() => {
+        getPayments()
+    }, []);
 
     const columns = [
         {
@@ -39,18 +62,6 @@ const Home = () => {
             selector: (row) => row.statusPayment,
         },
     ];
-
-    const data = [
-        {
-            id: 1,
-            year: '1988',
-            month: 'Octubre',
-            paymentDate: '10/01/2023',
-            value: '$ 2.000.000',
-            outstandingBalance: '$ 42.000.000',
-            statusPayment: 'Validado',
-        },
-    ]
 
     return (
         <div className={'home'}>
