@@ -11,14 +11,14 @@ import '/node_modules/primeflex/primeflex.css';
 const App = () => {
     return (
         <PrimeReactProvider>
-    <div>
-        <Header />
-        <div className={'container'}>
-            <RouterProvider router={routes} />
-        </div>
-    </div>
+            <div>
+                <Header/>
+                <div className={'container'}>
+                    <RouterProvider router={routes}/>
+                </div>
+            </div>
         </PrimeReactProvider>
-  );
+    );
 }
 
 export default App;

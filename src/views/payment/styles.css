@@ -4,16 +4,8 @@
     flex-direction: column;
 }
 
-.form-control {
-    display: flex;
-    flex-direction: column;
-    padding: 15px 0;
-}
-
 .input-control {
-    width: 200px;
-    margin: 10px 0;
-    padding: 5px 0;
+    width: 350px;
 }
 
 .error {
