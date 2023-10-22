@@ -25,6 +25,7 @@ const Home = () => {
     }
 
     useEffect(() => {
+        console.log('ls')
         getPayments()
     }, []);
 
