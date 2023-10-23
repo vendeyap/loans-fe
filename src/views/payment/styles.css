@@ -1,11 +1,5 @@
-.content-form {
-    padding: 20px 0;
-    display: flex;
-    flex-direction: column;
-}
-
 .input-control {
-    width: 350px;
+    width: 100%;
 }
 
 .error {

@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import Home from "./views/home/home";
 import PaymentForm from "./views/payment/payment-form";
 import React from "react";
+import Credit from "./views/credits/credit";
 
 export const routes = createBrowserRouter([
     {
@@ -9,7 +10,11 @@ export const routes = createBrowserRouter([
         element: <Home />,
     },
     {
-        path: "/nuevo-pago",
+        path: "/credit/:id",
+        element: <Credit />,
+    },
+    {
+        path: "/credit/:creditId/new-payment",
         element: <PaymentForm />,
     },
 ]);

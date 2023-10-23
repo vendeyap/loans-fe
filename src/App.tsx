@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./components/header/header";
-import './app.css'
 import {RouterProvider} from "react-router-dom";
 import {routes} from "./routes";
 import {PrimeReactProvider} from "primereact/api";
@@ -11,12 +10,10 @@ import '/node_modules/primeflex/primeflex.css';
 const App = () => {
     return (
         <PrimeReactProvider>
-            <div>
                 <Header/>
-                <div className={'container'}>
+                <div className={'flex-row col-12'}>
                     <RouterProvider router={routes}/>
                 </div>
-            </div>
         </PrimeReactProvider>
     );
 }

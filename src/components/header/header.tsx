@@ -4,10 +4,8 @@ import './styles.css'
 const Header: FC = () => {
 
     return (
-        <div className={'header'}>
-                <a href={'/'} className={'title'}>
-                    <h1>Prestamo Mazda 3</h1>
-                </a>
+        <div className={'flex-row col-12 header'}>
+            <div className={' font-medium text-3xl text-white py-2 px-2'}>Clubember</div>
         </div>
     );
 };

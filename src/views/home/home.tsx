@@ -1,92 +1,73 @@
-import React, {useEffect, useState} from 'react';
-import './styles.css'
-import {Link} from "react-router-dom";
+import React, {FC, useEffect, useState} from 'react';
 import axios from "axios";
-import {Button} from "primereact/button";
-import {Card} from "primereact/card";
-import {DataTable} from "primereact/datatable";
-import {Column} from "primereact/column";
+import BreadCrumbClub from "../../components/breadcrumb-club/breadcrumb-club";
+import {Link} from "react-router-dom";
+import moment from "moment";
 
-const Home = () => {
+const Home: FC<any> = () => {
 
-    const [payments, setPayments] = useState([])
+    const [credits, setCredits] = useState([])
 
-    const getPayments = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/payment`);
-        const paymentsList = response.data.map((item: { amount: any; }, idx: number) => {
+    const getCredits = async () => {
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/credit`);
+        const creditsList = response.data.map(c => {
             return {
-                id: idx + 1,
-                year: '1988',
-                month: 'Octubre',
-                paymentDate: '10/01/2023',
-                value: item.amount,
-                outstandingBalance: 42000000,
-                statusPayment: 'Validado',
-                supportImage: 'https://loan-bck.s3.us-east-2.amazonaws.com/supports/vende-ya.png',
+                id: c.id,
+                title: c.title,
+                amount: formatCurrency(c.amount),
+                amountPaid: formatCurrency(c.amountPaid),
+                pendingAmount: formatCurrency(c.pendingAmount),
+                totalPayments: c.payments.length,
+                createdAt: moment(c.createdAt).format("DD/MM/YYYY hh:mm:ss a")
             }
-        })
-        setPayments(paymentsList);
+        });
+        setCredits(creditsList);
     }
 
     useEffect(() => {
-        console.log('ls')
-        getPayments()
+        getCredits()
+        // eslint-disable-next-line
     }, []);
 
     const formatCurrency = (value) => {
-        return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+        return value.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
     };
-
-    const imageBodyTemplate = (payment) => {
-        return <a href={payment.supportImage} target={'_blank'} rel="noreferrer">
-            <img src={`${payment.supportImage}`} alt={payment.statusPayment} className="w-6rem shadow-2 border-round" />
-        </a> ;
-    };
-
-    const valueBodyTemplate = (payment) => {
-        return formatCurrency(payment.value);
-    };
-    const outstandingBodyTemplate = (payment) => {
-        return formatCurrency(payment.outstandingBalance);
-    };
-
 
     return (
-        <>
-            <Card title="Informe de pago" subTitle={'Resumen de pagos para prestamo vehicular'} className={'mt-5'}>
+        <div className={'flex-row px-2 py-2'}>
+            <BreadCrumbClub items={[{label: 'Creditos', url: '/'}]}/>
 
-                <div className={'flex'}>
-                    <div className={'money-content text-center'}>
-                        <span className={'text-2xl'}> Total de prestamo </span>
-                        <span className={'text-4xl font-light pt-5'}> $ 44.000.000</span>
-                    </div>
+            <div className={'col-12 mt-2 text-center pt-2'}>
+                <div className="font-semibold text-2xl text-900">Listado de creditos</div>
+            </div>
 
-                    <div className={'money-content text-center'}>
-                        <span className={'text-2xl'}> Saldo a la fecha </span>
-                        <span className={'text-4xl font-light pt-5'}> $ 42.000.000</span>
-                    </div>
-                </div>
-
-
-                <div className={'flex justify-content-end py-4'}>
-                    <Link to={'/nuevo-pago'}>
-                        <Button label="Registrar pago" link icon="pi pi-money-bill" />
-                    </Link>
-                </div>
-
-                <div className={'flex-row'}>
-                    <div className="card">
-                        <DataTable value={payments} tableStyle={{ minWidth: '50rem' }}>
-                            <Column field="paymentDate" header="Fecha de pago"></Column>
-                            <Column field="value" header="Valor" body={valueBodyTemplate}></Column>
-                            <Column field="outstandingBalance" header="Saldo restante" body={outstandingBodyTemplate}></Column>
-                            <Column field="statusPayment" header="Estado de pago"></Column>
-                            <Column field="supportImage" header="Comprobante" body={imageBodyTemplate}></Column>
-                        </DataTable>
-                    </div>
-                </div>
-            </Card>
-        </>
+            <div className={'grid py-4'}>
+                {credits.map((credit) => {
+                    return (
+                            <div className="col-12 md:col-6 lg:col-4" key={credit.id}>
+                                <Link to={`/credit/${credit.id}`} style={{
+                                    textDecoration: 'none'
+                                }}>
+                                <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
+                                    <div className="flex justify-content-between mb-2">
+                                        <div>
+                                            <div className="text-900 font-medium text-xl mb-4">{credit.title}</div>
+                                            <div className="block text-500 font-medium my-2">Total pagado: <span className={'text-green-500'}>{credit.amountPaid}</span> </div>
+                                            <div className="block text-500 font-medium my-2">Saldo pendiente: <span className={'text-red-500'}>{credit.pendingAmount}</span> </div>
+                                            <div className="block text-500 font-medium my-2">Pagos realizados: <span className={'text-blue-500'}>{credit.totalPayments}</span> </div>
+                                        </div>
+                                        <div className="flex align-items-center justify-content-center bg-gray-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
+                                            <i className="pi pi-dollar text-green-900 text-xl"></i>
+                                        </div>
+                                    </div>
+                                    <span className="text-500">{credit.createdAt}</span>
+                                </div>
+                                </Link>
+                            </div>
+                    )
+                })}
+            </div>
+        </div>
     );
 };
 
