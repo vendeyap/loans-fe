@@ -10,6 +10,7 @@ import moment from "moment/moment";
 import {Chart} from "primereact/chart";
 import {Message} from "primereact/message";
 import { Image } from 'primereact/image';
+import Title from "../../components/title/title";
 
 const Credit = () => {
 
@@ -52,11 +53,11 @@ const Credit = () => {
                     {
                         data: [credit.pendingAmount, credit.amountPaid],
                         backgroundColor: [
-                            documentStyle.getPropertyValue('--red-400'),
+                            documentStyle.getPropertyValue('--orange-400'),
                             documentStyle.getPropertyValue('--primary-400')
                         ],
                         hoverBackgroundColor: [
-                            documentStyle.getPropertyValue('--red-300'),
+                            documentStyle.getPropertyValue('--orange-300'),
                             documentStyle.getPropertyValue('--primary-300')
                         ]
                     }
@@ -92,10 +93,7 @@ const Credit = () => {
             {credit ? (
                 <>
                     <BreadCrumbClub items={[{label: 'Creditos' , url: '/'}, {label: credit.title}]}/>
-
-                    <div className={'col-12 mt-2 text-center'}>
-                        <div className="font-semibold text-2xl text-900">{credit.title}</div>
-                    </div>
+                    <Title title={credit.title} />
 
                     <div className={'grid'}>
 

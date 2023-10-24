@@ -3,6 +3,7 @@ import axios from "axios";
 import BreadCrumbClub from "../../components/breadcrumb-club/breadcrumb-club";
 import {Link} from "react-router-dom";
 import moment from "moment";
+import Title from "../../components/title/title";
 
 const Home: FC<any> = () => {
 
@@ -35,11 +36,9 @@ const Home: FC<any> = () => {
 
     return (
         <div className={'flex-row px-2 py-2'}>
-            <BreadCrumbClub items={[{label: 'Creditos', url: '/'}]}/>
 
-            <div className={'col-12 mt-2 text-center pt-2'}>
-                <div className="font-semibold text-2xl text-900">Listado de creditos</div>
-            </div>
+            <BreadCrumbClub items={[{label: 'Creditos', url: '/'}]}/>
+            <Title title={'Mis Creditos'} />
 
             <div className={'grid py-4'}>
                 {credits.map((credit) => {
