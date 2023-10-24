@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import {InputText} from "primereact/inputtext";
 import {Checkbox} from "primereact/checkbox";
@@ -26,6 +26,13 @@ const Login: FC = () => {
     const toast = useRef(null);
     const [checked, setChecked] = useState(false);
 
+    useEffect(() => {
+        const dataUser = localStorage.getItem('club-auth');
+        if (dataUser) {
+            navigate('/');
+        }
+    }, [navigate]);
+
     const onSubmit = async (data) => {
 
         try {
@@ -39,7 +46,7 @@ const Login: FC = () => {
                 });
 
                 localStorage.setItem('club-auth', JSON.stringify(res.data));
-                setTimeout(()=> navigate('/'), 1000);
+                setTimeout(()=> navigate('/'), 500);
             }
         } catch (e) {
             toast.current.show({
@@ -63,7 +70,7 @@ const Login: FC = () => {
                     <Image src={'../../../assets/images/clubember-short-logo.png'} alt="Image" height={'50'} className={'mb-3'} />
                     <div className="text-900 text-3xl font-medium mb-3">Clubember</div>
                     <span className="text-600 font-medium line-height-3">Aun no tienes una cuenta?</span>
-                    <Link to={'/'} className="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Crear cuenta aqui!</Link>
+                    <Link to={'/login'} className="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Crear una cuenta aqui!</Link>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,7 +91,7 @@ const Login: FC = () => {
                             <Checkbox id="rememberme" onChange={e => setChecked(e.checked)} checked={checked} className="mr-2" />
                             <label htmlFor="rememberme">Recuerdame</label>
                         </div>
-                        <Link to={'/'} className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Olvidaste tu contraseña?</Link>
+                        <Link to={'/login'} className="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Olvidaste tu contraseña?</Link>
                     </div>
 
                     <div className={'justify-content-center text-center'}>

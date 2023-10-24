@@ -1,13 +1,14 @@
 import React, {FC, useEffect, useState} from 'react';
 import axios from "axios";
 import BreadCrumbClub from "../../components/breadcrumb-club/breadcrumb-club";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import moment from "moment";
 import Title from "../../components/title/title";
 
 const Home: FC<any> = () => {
 
-    const [credits, setCredits] = useState([])
+    const navigate = useNavigate();
+    const [credits, setCredits] = useState([]);
 
     const getCredits = async () => {
         const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/credit`);
@@ -26,7 +27,12 @@ const Home: FC<any> = () => {
     }
 
     useEffect(() => {
-        getCredits()
+        const dataUser = localStorage.getItem('club-auth');
+        if (dataUser) {
+            getCredits()
+        } else {
+            navigate('/login');
+        }
         // eslint-disable-next-line
     }, []);
 

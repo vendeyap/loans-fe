@@ -11,14 +11,11 @@ const Header: FC = () => {
     const [user, setUser] = useState(null)
 
     useEffect(() => {
-
         const dataUser = localStorage.getItem('club-auth');
-        if (!dataUser) {
-            navigate(`/login`);
+        if (dataUser) {
+            setUser(JSON.parse(dataUser));
         }
-        setUser(JSON.parse(dataUser));
-
-    }, [navigate]);
+    }, []);
 
     const logOut = () => {
         localStorage.removeItem('club-auth');
@@ -51,10 +48,7 @@ const Header: FC = () => {
                         </div>
                     </div>
 
-
                 </div>
-
-
 
                 <Sidebar visible={visibleSidebar} position="right" onHide={() => setVisibleSidebar(false)}>
                     <div className="font-bold text-xl pb-2">
