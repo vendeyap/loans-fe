@@ -34,7 +34,7 @@ const Credit = () => {
                 pendingAmount: formatCurrency(item.pendingAmount || 0),
                 supportImage: item.fileUrl,
             }
-        });
+        }).sort((a, b) => b.id - a.id);
         setPayments(paymentsList);
     }
 
@@ -218,7 +218,7 @@ const Credit = () => {
                             <div className="card shadow-2">
                                 <DataTable value={payments} stripedRows tableStyle={{minWidth: '5rem'}} header={header}
                                            paginator
-                                           rows={5} rowsPerPageOptions={[5, 10, 15, 25, 50]}
+                                           rows={50} rowsPerPageOptions={[5, 10, 15, 25, 50, 100]}
                                            resizableColumns
                                            removableSort
                                            footer={footer}>
