@@ -34,6 +34,8 @@ const PaymentForm = () => {
     const [sent, setSent] = useState(false);
     const [responseCreated, setResponseCreated] = useState(null);
     const [credit, setCredit] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
     const defaultValues = {
         paymentDate: new Date(),
         file: null,
@@ -83,6 +85,7 @@ const PaymentForm = () => {
         }
     };
     const onSubmit = async (data) => {
+      setIsLoading(true);
         const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/payment`, {
             amount: data.amount,
             description: data.description,
@@ -91,11 +94,12 @@ const PaymentForm = () => {
             credit: routeParams.creditId
         });
         if (res.status === 201) {
-            toast.current.show({
+            toast?.current?.show({
                 severity: 'success', summary: 'Exito', life: 5000, detail: `El pago "${data.description}" se ha guardado 
             correctamente por un valor de ${formatCurrency(data.amount)} de pesos!`
             });
-            setResponseCreated(res.data)
+            setResponseCreated(res.data);
+            setIsLoading(false);
             setSent(true);
         }
     };
@@ -106,13 +110,12 @@ const PaymentForm = () => {
 
     register('amount', {required: true});
 
-    if (!credit) {
+    if (!credit || isLoading) {
         return (
-            <div className={'px-6 py-8 text-center justify-content-center'}>
-                <div className={'text-primary-500 font-medium'}>
-                    Cargando ...
-                </div>
-            </div>
+          <div className="flex flex-column align-items-center justify-content-center p-8">
+            <i className="pi pi-spin pi-spinner text-6xl p-4 text-blue-600"></i>
+            <span className="text-900 font-medium text-xl mb-2">Cargando...</span>
+          </div>
         );
     }
 
@@ -158,7 +161,7 @@ const PaymentForm = () => {
                                                 customUpload uploadHandler={onUpload}
                                                 className={'input-control'}
                                                 accept="image/*, application/pdf"
-                                                maxFileSize={1000000}
+                                                maxFileSize={20000000}
                                                 {...register("file", {required: true})}
                                                 emptyTemplate={<p className="m-0">Arrastra el comprobante para
                                                     cargar.</p>}/>

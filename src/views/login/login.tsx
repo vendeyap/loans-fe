@@ -68,7 +68,7 @@ const Login: FC = () => {
             <div className="surface-card px-5 py-6 shadow-2 border-round w-full md:w-8 lg:w-4">
                 <div className="text-center mb-5">
                     <Image src={'../../../assets/images/clubember-short-logo.png'} alt="Image" height={'50'} className={'mb-3'} />
-                    <div className="text-900 text-3xl font-medium mb-3">Clubember</div>
+                    <div className="text-900 text-3xl font-medium mb-3">Credipago</div>
                     <span className="text-600 font-medium line-height-3">Aun no tienes una cuenta?</span>
                     <Link to={'/login'} className="font-medium no-underline ml-2 text-blue-500 cursor-pointer">Crear una cuenta aqui!</Link>
                 </div>

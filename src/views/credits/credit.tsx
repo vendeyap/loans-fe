@@ -237,9 +237,10 @@ const Credit = () => {
                     </div>
                 </>
             ) : <div className={'px-6 py-8 text-center justify-content-center'}>
-                <div className={'text-primary-500 font-medium'}>
-                    Cargando ...
-                </div>
+              <div className="flex flex-column align-items-center justify-content-center p-8">
+                <i className="pi pi-spin pi-spinner text-6xl p-4 text-blue-600"></i>
+                <span className="text-900 font-medium text-xl mb-2">Cargando...</span>
+              </div>
             </div>}
 
 

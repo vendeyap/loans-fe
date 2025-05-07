@@ -37,7 +37,7 @@ const Header: FC = () => {
                         <div className="flex flex-1 justify-content-start md:justify-content-start sm:justify-content-center">
                             <Image src={'../../../assets/images/clubember-short-logo.png'} alt="Image" width="35" className={'pr-2'} />
                             <div className="font-bold text-3xl ">
-                                <span className="text-900 text-primary-800">Clubember</span>
+                                <span className="text-900 text-primary-800">Credipago</span>
                             </div>
                         </div>
 
